@@ -845,16 +845,16 @@ if ($user === null) {
     $num=rand(3,4);
     $apP=$pat->apellidoPaterno;
     $apM=$pat->apellidoMaterno;
-    if (empty($apP)) {
+    if ($apP=='') {
        $apP=substr(str_shuffle($caracteresPermitidos), 0, 1);
     }
 
-    if (empty($apM)) {
+    if ($apM=='') {
        $apM=substr(str_shuffle($caracteresPermitidos), 0, 1);
     }
 $codigo1=$request->nombre[0].''.$request->apepaterno[0].''.$request->apematerno[0];
-if (!empty($apP)) {
-$codigo2=$apP[0].''.$apM[0].''.$pat->nombre[0];
+if ($pat!='' ) {
+$codigo2=$pat->nombre[0].''.$apP[0].''.$apM[0];
 }else{
    $codigo2=substr(str_shuffle($caracteresPermitidos), 0, 3); 
 }
