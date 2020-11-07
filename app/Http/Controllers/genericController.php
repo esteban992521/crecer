@@ -901,7 +901,7 @@ $codigo= $codigo1.'-'.$codigo2.'-'.$codigo3;
     }
 return redirect()->back()->with('error','Existe un usuario con este curp');
 }
-    public function datos(Request $request)
+  function datos(Request $request)
 { 
     if(request()->ajax())
 {
