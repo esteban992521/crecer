@@ -843,18 +843,18 @@ if ($user === null) {
    // checar si correo existe en base de datos, si no existe crear usuario
     $caracteresPermitidos = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $num=rand(3,4);
-    $apP=$request->apepaterno;
-    $apM=$request->apematerno;
-    if ($apP=='') {
+    $apP=$pat->apellidoPaterno;
+    $apM=$pat->apellidoMaterno;
+    if (empty($apP)) {
        $apP=substr(str_shuffle($caracteresPermitidos), 0, 1);
     }
 
-    if ($apM=='') {
+    if (empty($apM)) {
        $apM=substr(str_shuffle($caracteresPermitidos), 0, 1);
     }
 $codigo1=$request->nombre[0].''.$request->apepaterno[0].''.$request->apematerno[0];
-if ($pat!='' ) {
-$codigo2=$pat->nombre[0].''.$apP[0].''.$apM[0];
+if (!empty($apP)) {
+$codigo2=$apP[0].''.$apM[0].''.$pat->nombre[0];
 }else{
    $codigo2=substr(str_shuffle($caracteresPermitidos), 0, 3); 
 }
