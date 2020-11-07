@@ -10517,6 +10517,10 @@ body.md-skin {
     color: #fff;
     background-color: #2271b3!important;
 }
+.type-indirect3, .type-indirect4, .type-indirect5, .type-indirect6{
+    color: #fff;
+    background-color: green!important;
+}
 
 .type-empty {
     background-color: #fff!important;

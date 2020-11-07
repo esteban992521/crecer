@@ -19,54 +19,6 @@
             </div>
           </div>
         </div>
-        <!--<div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-success pull-right">Mensualmente</span>
-                    <h5>Generado</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="stat-percent font-bold text-success"><i class="fa fa-dollar"> 0.00 </i></div>
-                    <small>Total generado</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-info pull-right">Anual</span>
-                    <h5>Generado</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="stat-percent font-bold text-info"><i class="fa fa-dollar"> 0.00 </i></div>
-                    <small>Total</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-primary pull-right">Directos</span>
-                    <h5>Invitados semanales</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="stat-percent font-bold text-navy">0 <i class="fa fa-level-up"></i></div>
-                    <small>Inscritos</small>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="label label-primary pull-right">Directos</span>
-                    <h5>Invitados mensuales</h5>
-                </div>
-                <div class="ibox-content">
-                    <div class="stat-percent font-bold text-navy">0 <i class="fa fa-level-up"></i></div>
-                    <small>Inscritos</small>
-                </div>
-            </div>
-		</div> -->
 	</div>
 	<div class="container-fluid">
 	
@@ -131,27 +83,27 @@
                         <div class="form-group" id="ciclos">
                             @foreach($ciclos as $value)
                                 @if($loop->last) 
-                                <?php $val=($loop->index)-1; 
-                                if($val<=1){
-                                    $p=0;
-                                }else {
-                                    $p=$ciclos[$val]->id;
-                                }
-                                ?>                         
-                                <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},4,{{$p}});" id="ciclo" name="b" checked=""> <i></i> Ciclo {{$loop->iteration}} (actual)</label> </br>
-                            
-                            @else
-                            @if($loop->first)
-                                    <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},1,0);" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
+                                    <?php $val=($loop->index)-1; 
+                                    if($val<=1){
+                                        $p=0;
+                                    }
+                                    else {
+                                        $p=$ciclos[$val]->id;
+                                    }
+                                    ?>                         
+                                    <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},4,{{$p}});" id="ciclo" name="b" checked=""> <i></i> Ciclo {{$loop->iteration}} (actual)</label> </br>
+                                @else
+                                    @if($loop->first)
+                                        <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},1,0);" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
                                     @elseIf($loop->index==1)
-                                    <?php $val=($loop->index)-1; ?>
-                                    <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},2,{{$ciclos[$val]->id}});" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
+                                        <?php $val=($loop->index)-1; ?>
+                                        <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},2,{{$ciclos[$val]->id}});" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
                                     @elseIf($loop->index>=1) 
-                                    <?php $val=($loop->index)-1; ?>
-                                    <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},3,{{$ciclos[$val]->id}});" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
-                                        
-                                @endif
+                                        <?php $val=($loop->index)-1; ?>
+                                        <label> <input class="btn-circle" type="radio" value="{{$value->id}}" onclick="traeArbolCiclo({{$value->id}}); checarCiclo({{$value->id}},3,{{$ciclos[$val]->id}});" id="ciclo" name="b"> <i></i> Ciclo {{$loop->iteration}}</label> </br>
+                                            
                                     @endif
+                                @endif
                             @endforeach
                             </br></br>  
                         </div>
@@ -184,6 +136,7 @@
                 
             </div>
         </div>
+
         <div class="col-lg-2" id="pagos1" style="width: 350px !important;">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -192,28 +145,23 @@
               
                 <div class="ibox-content"  style="border-top: 1px solid black; border-bottom: 1px solid black; font-size: 11px;">
 	                <div class="form-group" >
-                        <center>
-                        <img height="180px" src="{{asset('img/perfil/profile_small.jpg')}}">
-                        </center>
+                        <center><img height="180px" src="{{asset('img/perfil/profile_small.jpg')}}"></center>
                         <br>
                         <center><span class="label label-primary" style="text-align:center">No se ha llenado la comunidad.</span></center>
+                    </div>
                 </div>
-                </div>
-                <div class="ibox-content">
-                    
-                </div>
-                
+                <div class="ibox-content"></div>
             </div>
         </div>
-    </div> -->
+    </div>
     
 	 
     <script src="{{asset('treant/raphael.js')}}"></script>
     <script src="{{asset('treant/Treant.js')}}"></script>
     <script src="{{asset('treant/jquery.easing.js')}}"></script>
     <script>
-        users={!! $users !!}
-        userid={!! $id !!}
+        users = {!! $users !!}
+        userid = {!! $id !!}
     </script>
     <script src="{{asset('treant/collapsable.js')}}"></script>
     <script src="{{asset('js/codeSponsor.js')}}"></script>
