@@ -843,8 +843,8 @@ if ($user === null) {
    // checar si correo existe en base de datos, si no existe crear usuario
     $caracteresPermitidos = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $num=rand(3,4);
-    $apP=$pat->apellidoPaterno;
-    $apM=$pat->apellidoMaterno;
+    $apP=$request->apepaterno;
+    $apM=$request->apematerno;
     if ($apP=='') {
        $apP=substr(str_shuffle($caracteresPermitidos), 0, 1);
     }
@@ -901,7 +901,7 @@ $codigo= $codigo1.'-'.$codigo2.'-'.$codigo3;
     }
 return redirect()->back()->with('error','Existe un usuario con este curp');
 }
-    public function datos(Request $request)
+  function datos(Request $request)
 { 
     if(request()->ajax())
 {
