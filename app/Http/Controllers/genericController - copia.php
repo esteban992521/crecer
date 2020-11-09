@@ -654,94 +654,177 @@ class genericController extends Controller
     }
 
      /*Arreglo de acomodo de posiciones en comunidad - No duplica posición en comunidad*/
-     public function llenaArbol($nodo)
-     {
-         $empty = new User([
-             'id'              => -1,
-             'nombre'          => '',
-             'nickname'        => '',
-             'email'           => '',
-             'password'        => '',
-             'apellidoPaterno' => '',
-             'apellidoMaterno' => '',
-             'calle'           => '',
-             'numero'          => '',
-             'colonia'         => '',
-             'codigoPostal'    => '',
-             'idEstado'        => 0,
-             'idMunicipio'     => 0,
-             'telefono'        => '',
-             'rfc'             => '',
-             'curp'            => '',
-             'rol'             => 0,
-             'padre'           => -1,
-             'otraMatriz'      => 0,
-             'estatus'         => 33,
-         ]);
-         $userInsertar         = User::where('id', '=', $nodo->idUser)->first();
-         $userInsertar["nodo"] = $nodo->id;
-         $users[]              = $userInsertar;
-         if($nodo->idIzquierda == null){
-             $users[] = $empty;
-             $users[] = $empty;
-             $users[] = $empty;
-         }
-         else{
-             $nodoIzquierda        = nodos::where('id', '=', $nodo->idIzquierda)    ->first();
-             $userInsertar         = User::where('id',  '=', $nodoIzquierda->idUser)->first();
-             $userInsertar["nodo"] = $nodo->idIzquierda;
-             $users[]              = $userInsertar;
-             if($nodoIzquierda->idIzquierda == null){
-                 $users[] = $empty;
-             }
-             else{
-                 $nodoIzquierda2       = nodos::where('id', '=', $nodoIzquierda->idIzquierda)->first();
-                 $userInsertar         = User::where('id',  '=', $nodoIzquierda2->idUser)    ->first();
-                 $userInsertar["nodo"] = $nodoIzquierda->idIzquierda;
-                 $users[]              = $userInsertar;
-             }
-             if($nodoIzquierda->idDerecha == null ){
-                 $users[] = $empty;
-             }
-             else{
-                 $nodoIzquierda2       = nodos::where('id', '=', $nodoIzquierda->idDerecha)->first();
-                 $userInsertar         = User::where('id',  '=', $nodoIzquierda2->idUser)  ->first();
-                 $userInsertar["nodo"] = $nodoIzquierda->idDerecha;
-                 $users[]              = $userInsertar;
-             }
-         }
-         if($nodo->idDerecha == null){
-             $users[] = $empty;
-             $users[] = $empty;
-             $users[] = $empty;
-         }
-         else{
-             $nodoDerecha          = nodos::where('id', '=', $nodo->idDerecha)    ->first();
-             $userInsertar         = User::where('id',  '=', $nodoDerecha->idUser)->first();
-             $userInsertar["nodo"] = $nodo->idDerecha;
-             $users[]              = $userInsertar;
- 
-             if($nodoDerecha->idIzquierda == null){
-                 $users[] = $empty;
-             }else{
-                 $nodoDerecha2         = nodos::where('id', '=', $nodoDerecha->idIzquierda)->first();
-                 $userInsertar         = User::where('id',  '=', $nodoDerecha2->idUser)    ->first();
-                 $userInsertar["nodo"] = $nodoDerecha->idIzquierda;
-                 $users[]              = $userInsertar;
-             }
- 
-             if($nodoDerecha->idDerecha == null) {
-                 $users[] = $empty;
-             }else{
-                 $nodoDerecha2         = nodos::where('id', '=', $nodoDerecha->idDerecha)->first();
-                 $userInsertar         = User::where('id',  '=', $nodoDerecha2->idUser)  ->first();
-                 $userInsertar["nodo"] = $nodoDerecha->idDerecha;
-                 $users[]              = $userInsertar;
-             }
-         }
-         return json_encode($users);
-     }
+    public function llenaArbol( $nodo )
+{
+log::info( "Error al buscar al usuario en matrices => " . print_r( $nodo, true ) );
 
+$empty = new User([
+'id' => -1,
+'nombre' => '',
+'nickname' => '',
+'email' => '',
+'password' => '',
+'apellidoPaterno' => '',
+'apellidoMaterno' => '',
+'calle' => '',
+'numero' => '',
+'colonia' => '',
+'codigoPostal' => '',
+'idEstado' => 0,
+'idMunicipio' => 0,
+'telefono' => '',
+'rfc' => '',
+'curp' => '',
+'rol' => 0,
+'padre' => -1,
+'otraMatriz' => 0,
+'estatus' => 33,
+]);
+
+if( !empty( $nodo ) ){
+
+$userInsertar = User::where('id', '=', $nodo->idUser)->first();
+$userInsertar["nodo"] = $nodo->id;
+//Primer nodo
+$users[] = $userInsertar;
+if($nodo->idIzquierda == null){
+$users[] = $empty;
+$users[] = $empty;
+$users[] = $empty;
+}
+else{
+$nodoIzquierda = nodos::where('id', '=', $nodo->idIzquierda) ->first();
+$userInsertar = User::where('id', '=', $nodoIzquierda->idUser)->first();
+$userInsertar["nodo"] = $nodo->idIzquierda;
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+
+if($nodoIzquierda->idIzquierda == null){
+$users[] = $empty;
+}
+else{
+$nodoIzquierda2 = nodos::where('id', '=', $nodoIzquierda->idIzquierda)->first();
+$userInsertar = User::where('id', '=', $nodoIzquierda2->idUser) ->first();
+$userInsertar["nodo"] = $nodoIzquierda->idIzquierda;
+// Tercero
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+}
+if($nodoIzquierda->idDerecha == null ){
+$users[] = $empty;
+}
+else{
+$nodoIzquierda2 = nodos::where('id', '=', $nodoIzquierda->idDerecha)->first();
+$userInsertar = User::where('id', '=', $nodoIzquierda2->idUser) ->first();
+$userInsertar["nodo"] = $nodoIzquierda->idDerecha;
+// Cuarto
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+}
+}
+if($nodo->idDerecha == null){
+$users[] = $empty;
+$users[] = $empty;
+$users[] = $empty;
+}
+else{
+$nodoDerecha = nodos::where('id', '=', $nodo->idDerecha) ->first();
+$userInsertar = User::where('id', '=', $nodoDerecha->idUser)->first();
+$userInsertar["nodo"] = $nodo->idDerecha;
+// Quinto
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+
+if($nodoDerecha->idIzquierda == null){
+$users[] = $empty;
+}else{
+$nodoDerecha2 = nodos::where('id', '=', $nodoDerecha->idIzquierda)->first();
+$userInsertar = User::where('id', '=', $nodoDerecha2->idUser) ->first();
+$userInsertar["nodo"] = $nodoDerecha->idIzquierda;
+// Quinto
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+}
+
+if($nodoDerecha->idDerecha == null) {
+$users[] = $empty;
+}else{
+$nodoDerecha2 = nodos::where('id', '=', $nodoDerecha->idDerecha)->first();
+$userInsertar = User::where('id', '=', $nodoDerecha2->idUser) ->first();
+$userInsertar["nodo"] = $nodoDerecha->idDerecha;
+// Sexto
+
+$flag = 0;
+foreach ($users as &$user) {
+if ($user->id == $userInsertar->id) {
+$flag = 1;
+}
+}
+
+if ($flag == 0) {
+$users[] = $userInsertar;
+}else{
+$users[] = $empty;
+}
+}
+}
+return json_encode($users);
+}
+else{
+
+return json_encode( array() );
+}
+}
 
 
     //tommy
@@ -2120,7 +2203,21 @@ foreach($ciclos as $ciclo){
 }
 //}
 
+
+
+
+
+
+
+
+
+
+
+
+   
 }
+
+
 
 public function edita()
 {

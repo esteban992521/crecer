@@ -22,9 +22,9 @@ function existe(id)
     }
     return text;
 }        
-function recargamatriz(id)
+function recargamatriz( id )
 {
-    if(id!=0)
+    if( id != 0 )
     {
         $.ajax({
             method: 'post',
@@ -34,18 +34,18 @@ function recargamatriz(id)
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data:
-                {
-                    nodo:id
-                },
+            {
+                nodo:id
+            },
             success: function (data) 
-                {
-                    data=JSON.parse(data);
-                    cargaArbol(data);            
-                }
+            {
+                data=JSON.parse(data);
+                cargaArbol(data);            
+            }
         });    
-    }
-    
+    }    
 }
+
 function traeArbolCiclo(ciclo)
 {
     $.ajax({
@@ -150,7 +150,7 @@ function cargaArbol(data)
         },
         cbo = {
             parent: ceo,
-            HTMLclass: (verificaDirecto(data[4]) == '' ? 'type-empty' : (verificaDirecto(data[4]) == 'Directo' ? 'type-direct' : 'type-indirect')),
+            HTMLclass: (verificaDirecto(data[4]) == '' ? 'type-empty' : (verificaDirecto(data[4]) == 'Directo' ? 'type-direct' : 'type-indirect type-indirect2')),
             text:{
                 name: ""+existe(data[4].nombre) +" " +existe(data[4].apellidoPaterno +" " +existe(data[4].apellidoMaterno)),
                 title: "ID: "+data[4].codigo,
@@ -166,7 +166,7 @@ function cargaArbol(data)
         },
         cio = {
             parent: cto,
-            HTMLclass: (verificaDirecto(data[2]) == '' ? 'type-empty' : (verificaDirecto(data[2]) == 'Directo' ? 'type-direct' : 'type-indirect')),
+            HTMLclass: (verificaDirecto(data[2]) == '' ? 'type-empty' : (verificaDirecto(data[2]) == 'Directo' ? 'type-direct' : 'type-indirect type-indirect3')),
             text:{
                 name: ""+existe(data[2].nombre) +" " +existe(data[2].apellidoPaterno +" " +existe(data[2].apellidoMaterno)),
                 title: "ID: "+data[2].codigo,
@@ -182,7 +182,7 @@ function cargaArbol(data)
         },
         ciso = {
             parent: cto,
-            HTMLclass: (verificaDirecto(data[3]) == '' ? 'type-empty' : (verificaDirecto(data[3]) == 'Directo' ? 'type-direct' : 'type-indirect')),
+            HTMLclass: (verificaDirecto(data[3]) == '' ? 'type-empty' : (verificaDirecto(data[3]) == 'Directo' ? 'type-direct' : 'type-indirect type-indirect4')),
             text:{
                 name: ""+existe(data[3].nombre) +" " +existe(data[3].apellidoPaterno +" " +existe(data[3].apellidoMaterno)),
                 title: "ID: "+data[3].codigo,
@@ -198,7 +198,7 @@ function cargaArbol(data)
         },
         ciso2 = {
             parent: cbo,
-            HTMLclass: (verificaDirecto(data[5]) == '' ? 'type-empty' : (verificaDirecto(data[5]) == 'Directo' ? 'type-direct' : 'type-indirect')),
+            HTMLclass: (verificaDirecto(data[5]) == '' ? 'type-empty' : (verificaDirecto(data[5]) == 'Directo' ? 'type-direct' : 'type-indirect type-indirect5')),
             text:{
                 name: ""+existe(data[5].nombre) +" " +existe(data[5].apellidoPaterno +" " +existe(data[5].apellidoMaterno)),
                 title: "ID: "+data[5].codigo,
@@ -214,7 +214,7 @@ function cargaArbol(data)
         },
         ciso3 = {
             parent: cbo,
-            HTMLclass: (verificaDirecto(data[6]) == '' ? 'type-empty' : (verificaDirecto(data[6]) == 'Directo' ? 'type-direct' : 'type-indirect')),
+            HTMLclass: (verificaDirecto(data[6]) == '' ? 'type-empty' : (verificaDirecto(data[6]) == 'Directo' ? 'type-direct' : 'type-indirect type-indirect6')),
             text:{
                 name: ""+existe(data[6].nombre) +" " +existe(data[6].apellidoPaterno +" " +existe(data[6].apellidoMaterno)),
                 title: "ID: "+data[6].codigo,

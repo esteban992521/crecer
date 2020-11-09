@@ -164,8 +164,15 @@ class asociadocontroller extends Controller
             }
         }
 
-        return view('asociado.reporte',['usuarios' => $users]);
-    }*/
-    return view('asociado.reporte',['usuarios' => $users, 'patrocinador' => $patrocinador,'bancos' => $bancos, 'matrices' => $matrices, 'matrizUsuarios' => $matrizUsuarios ]);   
+        return view('asociado.reporte',['usuarios' => $users]);*/
+
+        
+        return view( 'asociado.reporte',[
+            'usuarios' => $users,
+            'patrocinador' => $patrocinador,
+            'bancos' => $bancos,
+            'matrices' => $matrices,
+            'matrizUsuarios' => $matrizUsuarios
+        ]);   
     }    
 }

@@ -31,7 +31,7 @@
 
                                 @foreach($usuarios as $user)
                                     <tr>
-                                        <td>{{$user->codigo}}</td>
+                                        <td>{{ @$user->codigo }}</td>
                                         <td>{{$user->nombre}} {{$user->apellidoPaterno}} {{$user->apellidoMaterno}}</td>
                                         <td>{{$patrocinador->nombre}} {{$patrocinador->apellidoPaterno}}  {{$patrocinador->apellidoMaterno}}</td>
                                         <td>@foreach ($matrizUsuarios as $matrizU)
