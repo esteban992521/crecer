@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\pais;
 use App\User;
-use App\Bajas;
+use App\Bajas; 
 use App\nodos;
 use App\matriz;
 use App\estados;

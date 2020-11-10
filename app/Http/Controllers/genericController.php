@@ -771,13 +771,14 @@ if ($user === null) {
     }
 $codigo1=$request->nombre[0].''.$request->apepaterno[0].''.$request->apematerno[0];
 if (!empty($apP)) {
-$codigo2=$apP[0].''.$apM[0].''.$pat->nombre[0];
+//$codigo2=$apP[0].''.$apM[0].''.$pat->nombre[0];
+$codigo2=$pat->nombre[0].''.$apP[0].''.$apM[0];
 }else{
    $codigo2=substr(str_shuffle($caracteresPermitidos), 0, 3); 
 }
 
 $codigo3=substr(str_shuffle($caracteresPermitidos), 0, $num);
-$codigo= $codigo1.'-'.$codigo2.'-'.$codigo3;
+$codigo= $codigo2.'-'.$codigo1.'-'.$codigo3;
     $user = User::create([
         'nickname'=>$request->nombre[0].''.$apP,
             'nombre'=>$request->nombre,
@@ -809,7 +810,9 @@ $codigo= $codigo1.'-'.$codigo2.'-'.$codigo3;
         //$contenido= new Request;
         //$contenido['idUser']=$user->id;
         // app(\App\Http\Controllers\genericController::class)->insertaEnMatriz($contenido);
-        Mail::to($user->email)->send(new PreregistroCreandoCertezas ($user,$codigo,$request->email,$request->nombre));
+
+        //comentar Mail para evitar el envío de correos de prueba
+       // Mail::to($user->email)->send(new PreregistroCreandoCertezas ($user,$codigo,$request->email,$request->nombre));
  return redirect()->back()->with('status','Pre-Registro creado con exito.');
         }
 
@@ -928,7 +931,7 @@ public function validarU($id, $motivo = null){
         $subscribetion = Subscription::create([
             'id_user'=>$id,
                 'amount'=>$amount,
-                'id_matriz'=>$matriz->idMatriz,
+                'id_matriz'=>$matriz->idMatriz, 
             ]);
     }
     $pago=$amount;
@@ -939,7 +942,8 @@ public function validarU($id, $motivo = null){
         $titulo='titulo mensaje';
         $mensaje='Texto del mensaje a enviar';
         
-         Mail::to($contt->email)->send(new NotificaciónDeTarea($titulo,$mensaje,$pago,$contt));
+        //comentar Mail para no enviar correos de pruebas
+        // Mail::to($contt->email)->send(new NotificaciónDeTarea($titulo,$mensaje,$pago,$contt));
        }
     }
     return redirect()->back()->with('status','Pre-Registro validado con exito.');

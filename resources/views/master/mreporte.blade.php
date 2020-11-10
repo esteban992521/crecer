@@ -23,12 +23,13 @@
                                 <th>Patrocinador</th>
                                 <th>Fecha Alta</th>
                                 <th>Comunidades</th>
+                                <th>Ver</th>
                                 <th>Acción</th>
                                 <th>Edición</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if($usuarios !== NULL)
+                            @if($usuarios !== NULL) 
 
                                 @foreach($usuarios as $user)
                                     <tr>
@@ -49,6 +50,13 @@
                                         @endforeach
                                         </td>
                                         <td>
+                                            <form class="form-horizontal" method="POST" action="{{URL::to('/master/vercomunidad')}}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" id="id" name="id" value="{{ $user['datos']->id }}">
+                                                <button type="submit" class="btn btn-primary">Ver</button>
+                                            </form>
+                                        </td>
+                                        <td>
                                             @if ($user['datos']->estatus==1)
                                                 
                                                 <button class="btn btn-primary disabled-user" data-id='{{ $user['datos']->id }}' data-name='{{$user['datos']->nombre}} {{$user['datos']->apellidoPaterno}} {{$user['datos']->apellidoMaterno}}'>Desactivar</button>
@@ -67,7 +75,7 @@
                                                 <button type="submit" class="btn btn-primary">Detalles</button>
                                             </form>
                                         </td>
-                                    </tr>
+                                    </tr> 
                                 @endforeach
                             @endif
                         </tbody>
@@ -78,6 +86,7 @@
                                 <th>Patrocinador</th>
                                 <th>Fecha Alta</th>
                                 <th>Comunidades</th>
+                                <th>Ver</th>
                                 <th>Acción</th>
                                 <th>Edición</th>
                             </tr>
