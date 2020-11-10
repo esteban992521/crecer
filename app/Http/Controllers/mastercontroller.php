@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ciclo;
 use App\pais;
 use App\User;
 use App\Bajas;
@@ -28,15 +29,12 @@ class mastercontroller extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('master.index',['user'=>'null','errormail'=>json_encode('null')]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -149,6 +147,7 @@ class mastercontroller extends Controller
 
         return redirect( "master/mreporte" )->with('status','Actualizado');
     }
+
     /**
      * Display the specified resource.
      *
@@ -193,7 +192,6 @@ class mastercontroller extends Controller
         $municipios=municipios::where('idEstado',$usuarioCambiar[0]->idEstado)->get();
         return view('master.edita',['pais'=>$pais,'usuarios'=>$usuarios,'user'=>$usuarioCambiar[0],'estados'=>$estados,'municipios'=>$municipios,'patrocinador'=>$patrocinador]);
     }
-
  
     /**
      * Remove the specified resource from storage.
@@ -221,10 +219,13 @@ class mastercontroller extends Controller
             }
         }
         $matrices = matriz::all();
-        $matrizUsuarios = userMatriz::all();
+        $matrizUsuarios = userMatriz::all();        
         
-        
-        return view('master.mreporte',['usuarios'=>$users,'matrices' => $matrices, 'matrizUsuarios' => $matrizUsuarios]);
+        return view('master.mreporte',[
+            'usuarios' => $users,
+            'matrices' => $matrices,
+            'matrizUsuarios' => $matrizUsuarios
+        ]);
     }
 
     /**
@@ -302,5 +303,58 @@ class mastercontroller extends Controller
         return view('master.usuario_deshabilitado', ['titulo' => $titulo, 'mensaje' => $mensaje]);
     }
 
+    public function registerUser( Request $request, $user ){
 
+        $users = array();
+        $matrices = userMatriz::Where([ "idUser" => $user ])->get();
+
+        foreach( $matrices as  $matriz ){
+
+            $usersMatriz = userMatriz::Where([ "idMatriz" => $matriz->idMatriz ])->get();
+
+            $usersMatriz = DB::table( 'usermatriz' )
+            ->join( 'ciclo', 'usermatriz.idMatriz', '=', 'ciclo.idMatriz' )
+            ->join( 'users', 'users.id', '=', 'ciclo.idUser' )
+            ->where([
+                'usermatriz.idMatriz' => $matriz->idMatriz
+            ])
+            ->get();
+
+            /*foreach( $usersMatriz as  $userMatriz ){
+
+                array_push( $users, $userMatriz->idUser );
+            }*/
+            te digo, yo igual he hecho cagadas, un día hice una cagada, que uta me sali de la casa y me fui a caminar por 20minutos
+        }
+
+        echo "<pre>";print_r( $usersMatriz );echo "</pre>";
+
+        /*$usuarios=User::select('*')->get();
+        $users=null;
+        foreach ($usuarios as  $user) {
+            $patrocinador= User::where('id','=',$user->padre)->first();
+            $banco = DB::table('infbancos')
+                     ->select('nombre')
+                     ->where('idUser','=',$user->id)
+                     ->get();
+            $users[$user->id]['datos'] = $user;
+            $users[$user->id]['banco'] = $banco[0]->nombre; 
+            if($user->id != 0){
+                $users[$user->id]['patrocinador'] = $patrocinador->nombre." ".$patrocinador->apellidoPaterno." ".$patrocinador->apellidoMaterno;
+            }
+            else{
+                $users[$user->id]['patrocinador'] = "";   
+            }
+        }
+        $matrices = matriz::all();
+        $matrizUsuarios = userMatriz::all();        
+        
+        return view('master.mreporte',[
+            'usuarios' => $users,
+            'matrices' => $matrices,
+            'matrizUsuarios' => $matrizUsuarios
+        ]);
+
+        return view( "register-user", $data );*/
+    }
 }

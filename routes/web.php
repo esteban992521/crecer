@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */////
 
 Route::get('/', function () {
+    
     return view('landing');
 });
 //tommy
@@ -45,28 +46,31 @@ Route::post('/subeArbol','genericController@subeArbol');
 Route::post('/traeCiclos','genericController@traeCiclos');
 Route::post('/traeDescendencia','genericController@traeDescendencia');
 Route::post('/guardaAsociado','genericController@guarda');
+
 // Rol master
 Route::group(['middleware' => ['auth','master'], 'prefix'=>'master'], function(){
-		Route::resource('/', 'mastercontroller');
+	
+	Route::resource('/', 'mastercontroller');
+	Route::post('crear','mastercontroller@store')->name('crear');
+	Route::get('/','mastercontroller@index');
+	Route::post('edita','mastercontroller@edita'); 
+	Route::get('deshabilitar','mastercontroller@showDeshabilitar')->name('deshabilitar-usuario');
+	Route::post('deshabilitar','mastercontroller@deshabilitar')->name('deshabilitar');
+	Route::post('/store','mastercontroller@store')->name('guardaUsuario');
+	Route::get('/mreporte','mastercontroller@mreporte')->name('mreporte');
 
-		Route::post('crear','mastercontroller@store')->name('crear');
-
-		Route::get('/','mastercontroller@index');
-		Route::post('edita','mastercontroller@edita'); 
-		Route::get('deshabilitar','mastercontroller@showDeshabilitar')->name('deshabilitar-usuario');
-		Route::post('deshabilitar','mastercontroller@deshabilitar')->name('deshabilitar');
-		Route::post('/store','mastercontroller@store')->name('guardaUsuario');
-		Route::get('/mreporte','mastercontroller@mreporte')->name('mreporte');
-
-		Route::post('guarda','mastercontroller@guarda')->name('guarda');
-		Route::resource('/matriz','ArbolController');
-		Route::post('/matriz/ver','ArbolController@ver')->name('ver');
+	Route::post('guarda','mastercontroller@guarda')->name('guarda');
+	Route::resource('/matriz','ArbolController');
+	Route::post('/matriz/ver','ArbolController@ver')->name('ver');
 });
 
 // Rol asociado
 Route::group(['middleware' => ['auth','asociado'], 'prefix'=>'asociado'], function(){
-		Route::resource('/', 'asociadocontroller');
-		Route::resource('/matriz', 'arbolasociadocontroller');
-		Route::post('/matriz/verMatriz','arbolasociadocontroller@verMatriz')->name('verMatriz');
-		Route::get('/reporte','asociadocontroller@reporte')->name('reporte');
+	
+	Route::resource('/', 'asociadocontroller');
+	Route::resource('/matriz', 'arbolasociadocontroller');
+	Route::post('/matriz/verMatriz','arbolasociadocontroller@verMatriz')->name('verMatriz');
+	Route::get('/reporte','asociadocontroller@reporte')->name('reporte');
 });
+
+Route::get( 'registro-usuario/{user}', [ 'as' => 'registro-usuario', 'uses' => 'mastercontroller@registerUser' ] );

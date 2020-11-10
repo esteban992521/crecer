@@ -23,6 +23,7 @@
                                 <th>Patrocinador</th>
                                 <th>Fecha Alta</th>
                                 <th>Comunidades</th>
+                                <th>Registros</th>
                                 <th>Acción</th>
                                 <th>Edición</th>
                             </tr>
@@ -37,16 +38,19 @@
                                         <td>{{$user['patrocinador']}}</td>
                                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$user['datos']->created_at)->format('Y-m-d') }}</td>
                                         <td>
-                                        @foreach ($matrizUsuarios as $matrizU)
-                                            @if ($matrizU->idUser==$user['datos']->id)
-                                            <?php  $mat=$matrizU->idMatriz; ?>
-                                                @foreach ($matrices as $matriz)
-                                                @if ($matriz->id==$mat)
-                                                    <?php echo $matriz->nombre; ?>
-                                                @endif    
-                                                @endforeach
-                                            @endif
-                                        @endforeach
+                                            @foreach ($matrizUsuarios as $matrizU)
+                                                @if ($matrizU->idUser==$user['datos']->id)
+                                                <?php  $mat=$matrizU->idMatriz; ?>
+                                                    @foreach ($matrices as $matriz)
+                                                    @if ($matriz->id==$mat)
+                                                        <?php echo $matriz->nombre; ?>
+                                                    @endif    
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href="{{ route( 'registro-usuario', $user['datos']->id ) }}" target="_blank"><button class="btn btn-primary">Ver</button></a>
                                         </td>
                                         <td>
                                             @if ($user['datos']->estatus==1)
