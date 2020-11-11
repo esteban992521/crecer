@@ -50,7 +50,7 @@
                                         @endforeach
                                         </td>
                                         <td>
-                                            <form class="form-horizontal" method="POST" action="{{URL::to('/master/vercomunidad')}}">
+                                            <form class="form-horizontal" method="POST" action="{{URL::to('master/vercomunidad')}}">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" id="id" name="id" value="{{ $user['datos']->id }}">
                                                 <button type="submit" class="btn btn-primary">Ver</button>
