@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth','master'], 'prefix'=>'master'], function()
 
 		Route::get('/','mastercontroller@index');
 		Route::post('edita','mastercontroller@edita'); 
-		Route::post('vercomunidad','ArbolController@ver'); //aqui colocar la ruta
+		Route::post('/vercomunidad','ArbolController@show1'); //aqui colocar la ruta
 		Route::get('deshabilitar','mastercontroller@showDeshabilitar')->name('deshabilitar-usuario'); 
 		Route::post('deshabilitar','mastercontroller@deshabilitar')->name('deshabilitar');
 		Route::post('/store','mastercontroller@store')->name('guardaUsuario');

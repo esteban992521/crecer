@@ -61,7 +61,7 @@
         <div class="col-lg-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Estructura de Comunidad
+                    Estructura de Comunidad 
                 </div>
                 <div class="panel-body">
                     <!-- <div class="chart col-md-5" id="collapsable-example"></div> -->

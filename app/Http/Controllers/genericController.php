@@ -252,7 +252,7 @@ class genericController extends Controller
             if($lleno) {
                 $cicloPadre->estatus=1;
                 $cicloPadre->save();
-                $useralternativo=User::findOrFail($directo);
+                $useralternativo=User::findOrFail($directo); 
                 $this->cicla($useralternativo,$idMatriz);
                 $this->salta($useralternativo,$idMatriz); 
             }
@@ -261,7 +261,7 @@ class genericController extends Controller
         $cicla = $this->revisaArriba($nodo,$directo);
         if($cicla){
             $nodoArriba=nodos::findOrFail($nodo->idArriba);
-            $nodocicla=nodos::findOrFail($nodoArriba->idArriba);
+            $nodocicla=nodos::findOrFail($nodoArriba->idArriba); 
             $usercicla=User::findOrFail($nodocicla->idUser);
             $cicloUser=ciclo::where('idUser','=',$usercicla->id)
                         ->where('idMatriz','=',$idMatriz)

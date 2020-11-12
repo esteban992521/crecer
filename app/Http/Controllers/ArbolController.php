@@ -38,6 +38,30 @@ class ArbolController extends Controller
     {
     	return view('ver');
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show1(Request $request)
+    {
+    	$usuario=User::where('id','=',$request->id)->first();
+        $ciclos=ciclo::where('idUser','=',$usuario->id)
+                       ->where('idMatriz','=',1)
+                       ->get();
+        $Matrices=ciclo::select('idMatriz')
+                       ->where('idUser','=',$usuario->id)
+                       ->distinct('idMatriz')
+                       ->get();
+        $userss=app(\App\Http\Controllers\genericController::class)->traeArbol($usuario,1);
+
+        return view('master.matriz.ver',['users'=>$userss,'ciclos'=>$ciclos,'id'=>$usuario->id,'matrices'=>$Matrices]);
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      *
