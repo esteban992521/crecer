@@ -884,7 +884,6 @@ public function validarU($id, $motivo = null){
     $id = (int) $id;
     $user=User::where('id','=',$id)->first();
     $where = array('id' => $id);
-
     if($user->estatus==1){
         $updateArr = ['estatus' => 0];
     // Mauricio
